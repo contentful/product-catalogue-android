@@ -1,0 +1,43 @@
+<resources>
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Main theme colors -->
+    <!--   your app branding color for the app bar -->
+    <item name="colorPrimary">@color/primary</item>
+    <!--   darker variant for the status bar and contextual app bars -->
+    <item name="colorPrimaryDark">@color/primary</item>
+    <!--   theme UI controls like checkboxes and text fields -->
+    <item name="colorAccent">@color/primary</item>
+
+    <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+  </style>
+
+  <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Main theme colors -->
+    <!--   your app branding color for the app bar -->
+    <item name="colorPrimary">@color/primary</item>
+    <!--   darker variant for the status bar and contextual app bars -->
+    <item name="colorPrimaryDark">@color/primary</item>
+    <!--   theme UI controls like checkboxes and text fields -->
+    <item name="colorAccent">@color/primary</item>
+
+    <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+  </style>
+
+  <style name="DrawerRowItem">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">16dp</item>
+    <item name="android:drawablePadding">16dp</item>
+    <item name="android:background">?android:attr/selectableItemBackground</item>
+    <item name="android:clickable">true</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+    <item name="spinBars">true</item>
+    <item name="color">@android:color/white</item>
+  </style>
+</resources>

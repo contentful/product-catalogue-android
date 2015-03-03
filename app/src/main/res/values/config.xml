@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- API Credentials -->
+  <string name="api_space_id">rue07lqzt1co</string>
+  <string name="api_access_token">96a3f11e5181cabea32d7385e210004206ac9ed3f17ef65992ee87238d00ef43</string>
+
+  <!-- Content Types -->
+  <string name="content_type_brand">sFzTZbSuM8coEwygeUYes</string>
+  <string name="content_type_category">6XwpTaSiiI2Ak2Ww0oi6qa</string>
+  <string name="content_type_product">2PqfXUJwE8qSYKuM0U6w8M</string>
+
+  <!-- URL Interception -->
+  <string name="url_intercept_schema">contentful-catalogue</string>
+</resources>

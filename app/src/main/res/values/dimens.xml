@@ -1,0 +1,5 @@
+<resources>
+  <dimen name="product_list_divider_height">8dp</dimen>
+  <dimen name="product_list_padding">8dp</dimen>
+  <dimen name="product_thumbnails_image_size">42dp</dimen>
+</resources>

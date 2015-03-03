@@ -1,0 +1,39 @@
+<resources>
+  <string name="app_name">Product Catalogue Demo</string>
+
+  <!-- Navigation Drawer -->
+  <string name="drawer_open">Open navigation</string>
+  <string name="drawer_close">Close navigation</string>
+  <string name="nav_products">All products</string>
+  <string name="nav_categories">Categories</string>
+  <string name="category">(%1$d)</string>
+
+  <!-- Menu -->
+  <string name="action_about">About</string>
+
+  <!-- Error Dialog -->
+  <string name="dialog_general_error_title">Oops, something went wrong…</string>
+  <string name="dialog_general_error_message">Check your network connection and try again.</string>
+  <string name="dialog_unauthorized_error_message">Server returned 401 (unauthorized). Double check your space ID and access token.</string>
+
+  <!-- About -->
+  <string name="about_btn_faq">FAQ</string>
+  <string name="about_btn_feedback">Send Feedback</string>
+  <string name="about_btn_contact">Contact</string>
+  <string name="about_btn_license">Licensing Information</string>
+
+  <!-- Contentful URLs -->
+  <string name="url_faq" formatted="false">https://support.contentful.com/hc/en-us/</string>
+  <string name="url_feedback" formatted="false">https://support.contentful.com/hc/en-us/requests/new/</string>
+  <string name="url_contact" formatted="false">https://support.contentful.com/hc/en-us/requests/new/</string>
+  <string name="url_licensing" formatted="false">http://www.apache.org/licenses/LICENSE-2.0</string>
+
+  <!-- Product List -->
+  <string name="product_price_empty">{PRICE}</string>
+  <string name="product_price">%1$s EUR</string>
+
+  <!-- Single Product -->
+  <string name="product_quantity">%1$s items in stock</string>
+  <string name="product_company_name">by &lt;a href=\"%2$s\">%1$s&lt;/a></string>
+  <string name="product_buy">Buy this item</string>
+</resources>
