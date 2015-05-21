@@ -38,7 +38,7 @@
 
     <activity android:name=".activities.ProductActivity"/>
 
-    <service android:name=".sync.SyncService"/>
+    <service android:name=".SyncService"/>
   </application>
 
 </manifest>

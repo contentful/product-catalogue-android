@@ -1,13 +1,12 @@
 package catalogue.templates.contentful.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import catalogue.templates.contentful.R;
 
-/** Base Activity. */
-public abstract class AbsActivity extends ActionBarActivity {
+public abstract class AbsActivity extends AppCompatActivity {
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.menu_base, menu);

@@ -1,17 +1,14 @@
 package catalogue.templates.contentful.loaders;
 
 import android.support.annotation.Nullable;
-import catalogue.templates.contentful.dto.Category;
-import catalogue.templates.contentful.dto.Product;
-import catalogue.templates.contentful.lib.RealmConverter;
-import catalogue.templates.contentful.sync.RealmCategory;
-import catalogue.templates.contentful.sync.RealmProduct;
-import io.realm.Realm;
-import io.realm.RealmResults;
+import catalogue.templates.contentful.App;
+import catalogue.templates.contentful.vault.CatalogueSpace;
+import catalogue.templates.contentful.vault.Category;
+import catalogue.templates.contentful.vault.Product;
+import com.contentful.vault.Vault;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Loader for a list of products. */
 public class ProductListLoader extends AbsLoader<ProductListLoader.Result> {
   private final String categoryRemoteId;
 
@@ -29,58 +26,23 @@ public class ProductListLoader extends AbsLoader<ProductListLoader.Result> {
   }
 
   @Override protected Result performLoad() {
-    Result result;
-    Realm realm = Realm.getInstance(getContext());
-
-    try {
-      List<Product> products = getProductList(realm, categoryRemoteId);
-
-      Category category = null;
-      if (categoryRemoteId != null) {
-        category = getCategory(realm, categoryRemoteId);
-      }
-
-      result = new Result(products, category);
-    } finally {
-      realm.close();
-    }
-
-    return result;
-  }
-
-  private Category getCategory(Realm realm, String remoteId) {
-    RealmCategory realmCategory =
-        realm.where(RealmCategory.class).equalTo("remoteId", remoteId).findFirst();
-
-    if (realmCategory != null) {
-      return RealmConverter.category(realmCategory);
-    }
-    
-    return null;
-  }
-
-  private List<Product> getProductList(Realm realm, String categoryRemoteId) {
-    RealmResults<RealmProduct> products;
-
+    List<Product> products = Vault.with(App.get(), CatalogueSpace.class).fetch(Product.class).all();
     if (categoryRemoteId == null) {
-      products = realm.allObjects(RealmProduct.class);
-    } else {
-      products = realm.where(RealmProduct.class)
-          .equalTo("categories.remoteId", categoryRemoteId)
-          .findAll();
+      return new Result(products, null);
     }
 
-    return convert(products);
-  }
-
-  private List<Product> convert(RealmResults<RealmProduct> products) {
-    List<Product> result = new ArrayList<>();
-
-    for (RealmProduct product : products) {
-      result.add(RealmConverter.product(product));
+    List<Product> filtered = new ArrayList<>();
+    Category targetCategory = null;
+    for (Product product : products) {
+      for (Category category : product.categories()) {
+        if (categoryRemoteId.equals(category.remoteId())) {
+          filtered.add(product);
+          targetCategory = category;
+          break;
+        }
+      }
     }
-
-    return result;
+    return new Result(filtered, targetCategory);
   }
 
   public static class Result {

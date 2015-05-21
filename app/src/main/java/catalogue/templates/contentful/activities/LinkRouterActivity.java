@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import catalogue.templates.contentful.sync.SyncService;
+import catalogue.templates.contentful.SyncService;
 
-/**
- * Responsible for intercepting {@link Intent#ACTION_VIEW} intents for a pre-defined schema.
- */
+/** Interceptor for {@link Intent#ACTION_VIEW} intents with a pre-defined schema. */
 public class LinkRouterActivity extends Activity {
   public static final String CMD_OPEN = "open";
   public static final String PATH_SPACE = "space";

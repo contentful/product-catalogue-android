@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -18,11 +17,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import catalogue.templates.contentful.Intents;
 import catalogue.templates.contentful.R;
-import catalogue.templates.contentful.dto.Category;
 import catalogue.templates.contentful.fragments.NavigationDrawerFragment;
 import catalogue.templates.contentful.fragments.ProductListFragment;
 import catalogue.templates.contentful.lib.ItemClickListener;
+import catalogue.templates.contentful.vault.Category;
 import java.util.HashMap;
+import org.parceler.Parcels;
 
 import static catalogue.templates.contentful.adapters.NavigationAdapter.Item;
 import static catalogue.templates.contentful.adapters.NavigationAdapter.Title;
@@ -31,19 +31,17 @@ import static catalogue.templates.contentful.adapters.NavigationAdapter.Title;
  * MainActivity.
  */
 public class MainActivity extends AbsActivity implements ItemClickListener<Item> {
-  // Views
-  @InjectView(R.id.toolbar) Toolbar toolbar;
-  @InjectView(R.id.drawer) DrawerLayout drawerLayout;
-
-  // Navigation
   private ActionBarDrawerToggle drawerToggle;
+
   private NavigationDrawerFragment navFragment;
 
-  // Fragments
   private HashMap<Title, Fragment> fragments;
 
-  // Receivers
   private BroadcastReceiver errorReceiver;
+
+  @InjectView(R.id.toolbar) Toolbar toolbar;
+
+  @InjectView(R.id.drawer) DrawerLayout drawerLayout;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -125,11 +123,7 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
     return super.onOptionsItemSelected(item);
   }
 
-  /**
-   * Handle item selection from nav drawer.
-   *
-   * @param item selected item
-   */
+  /** Handle item selection from nav drawer. */
   @Override public void onItemClick(Item item) {
     FragmentManager fm = getSupportFragmentManager();
     Title title = item.getTitle();
@@ -138,7 +132,7 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
       // Single Category selected, start ProductListFragment and pass the category.
       Category category = item.getObject();
       Bundle b = new Bundle();
-      b.putParcelable(Intents.EXTRA_CATEGORY, category);
+      b.putParcelable(Intents.EXTRA_CATEGORY, Parcels.wrap(category));
 
       clearBackstack();
 
@@ -161,9 +155,7 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
     drawerLayout.closeDrawers();
   }
 
-  /**
-   * Initialize Fragments.
-   */
+  /** Initialize Fragments. */
   private void createFragments() {
     fragments = new HashMap<>();
 
