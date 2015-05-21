@@ -3,24 +3,24 @@ package catalogue.templates.contentful.adapters;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import catalogue.templates.contentful.App;
-import catalogue.templates.contentful.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import catalogue.templates.contentful.dto.Product;
+import catalogue.templates.contentful.App;
+import catalogue.templates.contentful.R;
 import catalogue.templates.contentful.lib.CircleTransform;
+import catalogue.templates.contentful.vault.Product;
+import com.contentful.vault.Asset;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-/** Adapter for displaying a list of products. */
 public class ProductListAdapter extends AbsListAdapter<Product, ProductListAdapter.ViewHolder> {
   @Override protected void bindView(ViewHolder holder, Product product, View rootView) {
-    List<String> images = product.images();
-    if (images == null || images.size() == 0) {
+    List<Asset> images = product.images();
+    if (images.size() == 0) {
       holder.photo.setImageDrawable(null);
     } else {
       Picasso.with(rootView.getContext())
-          .load(images.get(0))
+          .load(images.get(0).url())
           .fit()
           .centerInside()
           .transform(new CircleTransform())
@@ -47,10 +47,11 @@ public class ProductListAdapter extends AbsListAdapter<Product, ProductListAdapt
     }
   }
 
-  /** View Holder */
   static class ViewHolder {
     @InjectView(R.id.photo) ImageView photo;
+
     @InjectView(R.id.title) TextView title;
+
     @InjectView(R.id.price) TextView price;
 
     ViewHolder(View rootView) {

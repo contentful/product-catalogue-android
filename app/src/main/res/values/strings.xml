@@ -11,11 +11,6 @@
   <!-- Menu -->
   <string name="action_about">About</string>
 
-  <!-- Error Dialog -->
-  <string name="dialog_general_error_title">Oops, something went wrong…</string>
-  <string name="dialog_general_error_message">Check your network connection and try again.</string>
-  <string name="dialog_unauthorized_error_message">Server returned 401 (unauthorized). Double check your space ID and access token.</string>
-
   <!-- About -->
   <string name="about_btn_faq">FAQ</string>
   <string name="about_btn_feedback">Send Feedback</string>

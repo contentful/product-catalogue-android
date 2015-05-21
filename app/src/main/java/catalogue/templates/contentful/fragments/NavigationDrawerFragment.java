@@ -18,21 +18,16 @@ import catalogue.templates.contentful.lib.LoaderId;
 import catalogue.templates.contentful.loaders.NavLoader;
 import java.util.List;
 
-/**
- * NavigationDrawerFragment.
- */
 public class NavigationDrawerFragment extends BaseFragment
     implements LoaderManager.LoaderCallbacks<List<NavigationAdapter.Item>> {
 
-  // Views
-  @InjectView(R.id.list) ListView list;
-
-  // Data
   private static final int LOADER_ID = LoaderId.forClass(NavigationDrawerFragment.class);
+
   private NavigationAdapter adapter;
 
-  // Listeners
   private ItemClickListener<NavigationAdapter.Item> listener;
+
+  @InjectView(R.id.list) ListView list;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -42,7 +37,6 @@ public class NavigationDrawerFragment extends BaseFragment
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    super.onCreateView(inflater, container, savedInstanceState);
     return inflater.inflate(R.layout.fragment_nav_drawer, container, false);
   }
 

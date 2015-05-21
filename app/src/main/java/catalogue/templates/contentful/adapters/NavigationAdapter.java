@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import catalogue.templates.contentful.App;
 import catalogue.templates.contentful.R;
-import catalogue.templates.contentful.dto.Category;
+import catalogue.templates.contentful.vault.Category;
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,13 +91,6 @@ public class NavigationAdapter extends BaseAdapter {
     return convertView;
   }
 
-  /**
-   * Create {@link Item} for the given {@link Category}.
-   *
-   * @param category category
-   * @param count items count
-   * @return {@link Item} result instance
-   */
   public static Item itemFromCategory(Category category, int count) {
     return new Item.Builder().setTitle(Title.SINGLE_CATEGORY)
         .setLeftTitle(category.title())
@@ -106,39 +99,22 @@ public class NavigationAdapter extends BaseAdapter {
         .create();
   }
 
-  /**
-   * Switch to primary data set.
-   */
   public void switchToPrimary() {
     activeData = PRIMARY_DATA;
   }
 
-  /**
-   * Switch to secondary data set.
-   */
   public void switchToSecondary() {
     activeData = secondaryData;
   }
 
-  /**
-   * Return true in case the primary data set is active.
-   */
   public boolean isPrimary() {
     return activeData == PRIMARY_DATA;
   }
 
-  /**
-   * Set the data for the secondary data set.
-   *
-   * @param secondaryData data
-   */
   public void setSecondaryData(List<Item> secondaryData) {
     this.secondaryData = secondaryData;
   }
 
-  /**
-   * Toggle between primary / secondary data sets
-   */
   public void toggle() {
     if (activeData == PRIMARY_DATA) {
       switchToSecondary();
@@ -147,18 +123,12 @@ public class NavigationAdapter extends BaseAdapter {
     }
   }
 
-  /**
-   * Title.
-   */
   public enum Title {
     PRODUCTS,
     CATEGORIES,
     SINGLE_CATEGORY
   }
 
-  /**
-   * Navigation Item.
-   */
   public static class Item {
     final Integer leftDrawable;
     final Integer rightDrawable;
@@ -229,14 +199,14 @@ public class NavigationAdapter extends BaseAdapter {
     }
   }
 
-  /**
-   * View Holder.
-   */
   static class ViewHolder {
+    final View root;
+
     @InjectView(R.id.image) ImageView imageView;
+
     @InjectView(R.id.tv_left) TextView tvLeft;
+
     @InjectView(R.id.tv_right) TextView tvRight;
-    View root;
 
     ViewHolder(View root) {
       this.root = root;

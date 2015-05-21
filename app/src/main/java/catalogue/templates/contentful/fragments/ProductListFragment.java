@@ -13,45 +13,44 @@ import android.widget.ListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnItemClick;
+import catalogue.templates.contentful.App;
 import catalogue.templates.contentful.Intents;
 import catalogue.templates.contentful.R;
 import catalogue.templates.contentful.activities.ProductActivity;
 import catalogue.templates.contentful.adapters.ProductListAdapter;
-import catalogue.templates.contentful.dto.Category;
-import catalogue.templates.contentful.dto.Product;
 import catalogue.templates.contentful.lib.LoaderId;
 import catalogue.templates.contentful.loaders.ProductListLoader;
-import catalogue.templates.contentful.sync.SyncService;
+import catalogue.templates.contentful.vault.Category;
+import catalogue.templates.contentful.vault.Product;
+import org.parceler.Parcels;
 
 /** Displays a list of products. */
 public class ProductListFragment extends BaseFragment implements
     SwipeRefreshLayout.OnRefreshListener,
     LoaderManager.LoaderCallbacks<ProductListLoader.Result> {
 
-  // Views
-  @InjectView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
-  @InjectView(R.id.list) ListView listView;
-
-  // Data
   private final int LOADER_ID = LoaderId.forClass(ProductListFragment.class);
+
   private ProductListAdapter adapter;
+
   private Category category;
+
+  @InjectView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+
+  @InjectView(R.id.list) ListView listView;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     Bundle b = getArguments();
     if (b != null) {
-      category = b.getParcelable(Intents.EXTRA_CATEGORY);
+      category = Parcels.unwrap(b.getParcelable(Intents.EXTRA_CATEGORY));
     }
-
     adapter = new ProductListAdapter();
     initLoader();
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    super.onCreateView(inflater, container, savedInstanceState);
     return inflater.inflate(R.layout.fragment_product_list, container, false);
   }
 
@@ -71,7 +70,7 @@ public class ProductListFragment extends BaseFragment implements
   }
 
   @Override public void onRefresh() {
-    SyncService.sync();
+    App.requestSync();
   }
 
   @Override public final void onLoadFinished(Loader<ProductListLoader.Result> loader,
@@ -109,7 +108,7 @@ public class ProductListFragment extends BaseFragment implements
   void onListItemClick(int position) {
     Product product = adapter.getItem(position);
     startActivity(new Intent(getActivity(), ProductActivity.class)
-        .putExtra(Intents.EXTRA_PRODUCT, product));
+        .putExtra(Intents.EXTRA_PRODUCT, Parcels.wrap(product)));
   }
 
   private void initList() {

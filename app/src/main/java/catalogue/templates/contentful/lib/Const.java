@@ -1,21 +1,18 @@
 package catalogue.templates.contentful.lib;
 
-import catalogue.templates.contentful.App;
-import catalogue.templates.contentful.R;
-
-/** Const. */
 public class Const {
   private Const() {
     throw new AssertionError();
   }
 
-  // Content Type IDs
-  public static final String CONTENT_TYPE_BRAND =
-      App.get().getString(R.string.content_type_brand);
+  public static final String SPACE_ID = "rue07lqzt1co";
 
-  public static final String CONTENT_TYPE_CATEGORY =
-      App.get().getString(R.string.content_type_category);
+  public static final String ACCESS_TOKEN =
+      "96a3f11e5181cabea32d7385e210004206ac9ed3f17ef65992ee87238d00ef43";
 
-  public static final String CONTENT_TYPE_PRODUCT =
-      App.get().getString(R.string.content_type_product);
+  public static final String CONTENT_TYPE_BRAND = "sFzTZbSuM8coEwygeUYes";
+
+  public static final String CONTENT_TYPE_CATEGORY = "6XwpTaSiiI2Ak2Ww0oi6qa";
+
+  public static final String CONTENT_TYPE_PRODUCT = "2PqfXUJwE8qSYKuM0U6w8M";
 }

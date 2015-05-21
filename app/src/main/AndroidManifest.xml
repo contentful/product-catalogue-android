@@ -37,8 +37,6 @@
         android:screenOrientation="sensorPortrait"/>
 
     <activity android:name=".activities.ProductActivity"/>
-
-    <service android:name=".sync.SyncService"/>
   </application>
 
 </manifest>

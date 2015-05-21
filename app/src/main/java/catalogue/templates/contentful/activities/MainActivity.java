@@ -1,16 +1,10 @@
 package catalogue.templates.contentful.activities;
 
-import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -18,11 +12,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import catalogue.templates.contentful.Intents;
 import catalogue.templates.contentful.R;
-import catalogue.templates.contentful.dto.Category;
 import catalogue.templates.contentful.fragments.NavigationDrawerFragment;
 import catalogue.templates.contentful.fragments.ProductListFragment;
 import catalogue.templates.contentful.lib.ItemClickListener;
+import catalogue.templates.contentful.vault.Category;
 import java.util.HashMap;
+import org.parceler.Parcels;
 
 import static catalogue.templates.contentful.adapters.NavigationAdapter.Item;
 import static catalogue.templates.contentful.adapters.NavigationAdapter.Title;
@@ -31,19 +26,15 @@ import static catalogue.templates.contentful.adapters.NavigationAdapter.Title;
  * MainActivity.
  */
 public class MainActivity extends AbsActivity implements ItemClickListener<Item> {
-  // Views
-  @InjectView(R.id.toolbar) Toolbar toolbar;
-  @InjectView(R.id.drawer) DrawerLayout drawerLayout;
-
-  // Navigation
   private ActionBarDrawerToggle drawerToggle;
+
   private NavigationDrawerFragment navFragment;
 
-  // Fragments
   private HashMap<Title, Fragment> fragments;
 
-  // Receivers
-  private BroadcastReceiver errorReceiver;
+  @InjectView(R.id.toolbar) Toolbar toolbar;
+
+  @InjectView(R.id.drawer) DrawerLayout drawerLayout;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -72,31 +63,12 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
         .findFragmentById(R.id.fragment_drawer);
 
     navFragment.setListener(this);
-
-    // Receivers
-    errorReceiver = new BroadcastReceiver() {
-      @Override public void onReceive(Context context, Intent intent) {
-        showErrorDialog(intent.getIntExtra(Intents.EXTRA_STATUS_CODE, -1));
-      }
-    };
   }
 
   @Override protected void onPostCreate(Bundle savedInstanceState) {
     super.onPostCreate(savedInstanceState);
     // Sync the toggle state after onRestoreInstanceState has occurred.
     drawerToggle.syncState();
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
-
-    registerReceiver(errorReceiver, new IntentFilter(Intents.ACTION_SHOW_ERROR));
-  }
-
-  @Override protected void onPause() {
-    unregisterReceiver(errorReceiver);
-
-    super.onPause();
   }
 
   @Override protected void onDestroy() {
@@ -125,11 +97,7 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
     return super.onOptionsItemSelected(item);
   }
 
-  /**
-   * Handle item selection from nav drawer.
-   *
-   * @param item selected item
-   */
+  /** Handle item selection from nav drawer. */
   @Override public void onItemClick(Item item) {
     FragmentManager fm = getSupportFragmentManager();
     Title title = item.getTitle();
@@ -138,7 +106,7 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
       // Single Category selected, start ProductListFragment and pass the category.
       Category category = item.getObject();
       Bundle b = new Bundle();
-      b.putParcelable(Intents.EXTRA_CATEGORY, category);
+      b.putParcelable(Intents.EXTRA_CATEGORY, Parcels.wrap(category));
 
       clearBackstack();
 
@@ -161,29 +129,11 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
     drawerLayout.closeDrawers();
   }
 
-  /**
-   * Initialize Fragments.
-   */
   private void createFragments() {
     fragments = new HashMap<>();
 
     fragments.put(Title.PRODUCTS,
         ProductListFragment.instantiate(this, ProductListFragment.class.getName()));
-  }
-
-  private void showErrorDialog(int httpStatusCode) {
-    int title = R.string.dialog_general_error_title;
-    int message = R.string.dialog_general_error_message;
-
-    if (httpStatusCode == 401) {
-      message = R.string.dialog_unauthorized_error_message;
-    }
-
-    new AlertDialog.Builder(this)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
   }
 
   private void clearBackstack() {

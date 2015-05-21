@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import catalogue.templates.contentful.Intents;
+import com.contentful.vault.Vault;
 
-/**
- * Base fragment implementation.
- */
 public abstract class BaseFragment extends Fragment {
   private BroadcastReceiver reloadReceiver;
 
@@ -18,7 +15,7 @@ public abstract class BaseFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     createReceivers();
-    getActivity().registerReceiver(reloadReceiver, new IntentFilter(Intents.ACTION_RELOAD));
+    getActivity().registerReceiver(reloadReceiver, new IntentFilter(Vault.ACTION_SYNC_COMPLETE));
   }
 
   @Override public void onDestroy() {

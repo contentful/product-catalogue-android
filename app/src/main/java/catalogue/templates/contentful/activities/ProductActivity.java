@@ -15,31 +15,39 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import catalogue.templates.contentful.Intents;
 import catalogue.templates.contentful.R;
-import catalogue.templates.contentful.dto.Brand;
-import catalogue.templates.contentful.dto.Product;
 import catalogue.templates.contentful.lib.ZoomOutPageTransformer;
+import catalogue.templates.contentful.vault.Brand;
+import catalogue.templates.contentful.vault.Product;
+import com.contentful.vault.Asset;
 import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
 import java.util.List;
+import org.parceler.Parcels;
 
-/** Single product activity. */
 public class ProductActivity extends AbsActivity {
-  // Views
-  @InjectView(R.id.view_pager) ViewPager imagesPager;
-  @InjectView(R.id.thumbnails) ViewGroup thumbnails;
-  @InjectView(R.id.product_name) TextView productNameView;
-  @InjectView(R.id.company_name) TextView companyNameView;
-  @InjectView(R.id.price) TextView priceView;
-  @InjectView(R.id.quantity) TextView quantityView;
-  @InjectView(R.id.description) TextView descriptionView;
-
   private Product product;
+
   private ImagePagerAdapter adapter;
+
+  @InjectView(R.id.view_pager) ViewPager imagesPager;
+
+  @InjectView(R.id.thumbnails) ViewGroup thumbnails;
+
+  @InjectView(R.id.product_name) TextView productNameView;
+
+  @InjectView(R.id.company_name) TextView companyNameView;
+
+  @InjectView(R.id.price) TextView priceView;
+
+  @InjectView(R.id.quantity) TextView quantityView;
+
+  @InjectView(R.id.description) TextView descriptionView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_product);
     ButterKnife.inject(this);
-    product = getIntent().getParcelableExtra(Intents.EXTRA_PRODUCT);
+    product = Parcels.unwrap(getIntent().getParcelableExtra(Intents.EXTRA_PRODUCT));
 
     initAdapter();
     initImages();
@@ -50,34 +58,26 @@ public class ProductActivity extends AbsActivity {
     setDescriptionText();
   }
 
-  /** Initializes the adapter. */
   private void initAdapter() {
     adapter = new ImagePagerAdapter();
-    adapter.setUrls(product.images());
+    List<String> urls = new ArrayList<>();
+    for (Asset asset : product.images()) {
+      urls.add(asset.url());
+    }
+    adapter.setUrls(urls);
   }
 
-  /** Adds the product images as thumbnail view to the {@link #imagesPager} view pager. */
   private void initImages() {
     imagesPager.setAdapter(adapter);
     imagesPager.setPageTransformer(true, new ZoomOutPageTransformer());
     int size = getResources().getDimensionPixelSize(R.dimen.product_thumbnails_image_size);
 
-    List<String> images = product.images();
-    if (images != null) {
-      for (int i = 0; i < images.size(); i++) {
-        String url = images.get(i);
-        generateThumbnail(url, i, size);
-      }
+    for (int i = 0; i < product.images().size(); i++) {
+      String url = product.images().get(i).url();
+      generateThumbnail(url, i, size);
     }
   }
 
-  /**
-   * Generates a thumbnail view for the given {@code url}.
-   *
-   * @param url image url
-   * @param position position of thumbnail
-   * @param size size
-   */
   private void generateThumbnail(String url, final int position, int size) {
     ImageView imageView = new ImageView(this);
     imageView.setLayoutParams(new LinearLayoutCompat.LayoutParams(size, size));
