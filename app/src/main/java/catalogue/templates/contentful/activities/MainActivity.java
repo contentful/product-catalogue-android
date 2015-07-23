@@ -8,8 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import catalogue.templates.contentful.Intents;
 import catalogue.templates.contentful.R;
 import catalogue.templates.contentful.fragments.NavigationDrawerFragment;
@@ -32,14 +32,14 @@ public class MainActivity extends AbsActivity implements ItemClickListener<Item>
 
   private HashMap<Title, Fragment> fragments;
 
-  @InjectView(R.id.toolbar) Toolbar toolbar;
+  @Bind(R.id.toolbar) Toolbar toolbar;
 
-  @InjectView(R.id.drawer) DrawerLayout drawerLayout;
+  @Bind(R.id.drawer) DrawerLayout drawerLayout;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    ButterKnife.inject(this);
+    ButterKnife.bind(this);
 
     // Navigation
     drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,

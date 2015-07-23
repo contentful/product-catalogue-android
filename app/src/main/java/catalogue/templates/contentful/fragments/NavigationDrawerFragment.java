@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnItemClick;
 import catalogue.templates.contentful.R;
 import catalogue.templates.contentful.adapters.NavigationAdapter;
@@ -27,7 +27,7 @@ public class NavigationDrawerFragment extends BaseFragment
 
   private ItemClickListener<NavigationAdapter.Item> listener;
 
-  @InjectView(R.id.list) ListView list;
+  @Bind(R.id.list) ListView list;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class NavigationDrawerFragment extends BaseFragment
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    ButterKnife.inject(this, view);
+    ButterKnife.bind(this, view);
     list.setAdapter(adapter);
 
     if (savedInstanceState == null) {
@@ -51,7 +51,7 @@ public class NavigationDrawerFragment extends BaseFragment
   }
 
   @Override public void onDestroyView() {
-    ButterKnife.reset(this);
+    ButterKnife.unbind(this);
     super.onDestroyView();
   }
 
