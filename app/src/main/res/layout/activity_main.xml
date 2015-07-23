@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/fragment_drawer"
-        android:name="catalogue.templates.contentful.fragments.NavigationDrawerFragment"
+        android:name="catalogue.contentful.fragments.NavigationDrawerFragment"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
