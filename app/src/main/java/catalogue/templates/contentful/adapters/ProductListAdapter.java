@@ -3,8 +3,8 @@ package catalogue.templates.contentful.adapters;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import catalogue.templates.contentful.App;
 import catalogue.templates.contentful.R;
 import catalogue.templates.contentful.lib.CircleTransform;
@@ -48,14 +48,14 @@ public class ProductListAdapter extends AbsListAdapter<Product, ProductListAdapt
   }
 
   static class ViewHolder {
-    @InjectView(R.id.photo) ImageView photo;
+    @Bind(R.id.photo) ImageView photo;
 
-    @InjectView(R.id.title) TextView title;
+    @Bind(R.id.title) TextView title;
 
-    @InjectView(R.id.price) TextView price;
+    @Bind(R.id.price) TextView price;
 
     ViewHolder(View rootView) {
-      ButterKnife.inject(this, rootView);
+      ButterKnife.bind(this, rootView);
     }
   }
 }

@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import catalogue.templates.contentful.App;
 import catalogue.templates.contentful.R;
 import catalogue.templates.contentful.vault.Category;
@@ -202,15 +202,15 @@ public class NavigationAdapter extends BaseAdapter {
   static class ViewHolder {
     final View root;
 
-    @InjectView(R.id.image) ImageView imageView;
+    @Bind(R.id.image) ImageView imageView;
 
-    @InjectView(R.id.tv_left) TextView tvLeft;
+    @Bind(R.id.tv_left) TextView tvLeft;
 
-    @InjectView(R.id.tv_right) TextView tvRight;
+    @Bind(R.id.tv_right) TextView tvRight;
 
     ViewHolder(View root) {
       this.root = root;
-      ButterKnife.inject(this, root);
+      ButterKnife.bind(this, root);
     }
   }
 }

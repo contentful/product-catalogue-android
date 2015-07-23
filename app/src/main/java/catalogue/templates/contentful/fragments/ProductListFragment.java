@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnItemClick;
 import catalogue.templates.contentful.App;
 import catalogue.templates.contentful.Intents;
@@ -35,9 +35,9 @@ public class ProductListFragment extends BaseFragment implements
 
   private Category category;
 
-  @InjectView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+  @Bind(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
 
-  @InjectView(R.id.list) ListView listView;
+  @Bind(R.id.list) ListView listView;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,12 +56,12 @@ public class ProductListFragment extends BaseFragment implements
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    ButterKnife.inject(this, view);
+    ButterKnife.bind(this, view);
     initList();
   }
 
   @Override public void onDestroyView() {
-    ButterKnife.reset(this);
+    ButterKnife.unbind(this);
     super.onDestroyView();
   }
 

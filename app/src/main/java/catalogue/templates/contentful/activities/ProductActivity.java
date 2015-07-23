@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import catalogue.templates.contentful.Intents;
 import catalogue.templates.contentful.R;
 import catalogue.templates.contentful.lib.ZoomOutPageTransformer;
@@ -29,24 +29,24 @@ public class ProductActivity extends AbsActivity {
 
   private ImagePagerAdapter adapter;
 
-  @InjectView(R.id.view_pager) ViewPager imagesPager;
+  @Bind(R.id.view_pager) ViewPager imagesPager;
 
-  @InjectView(R.id.thumbnails) ViewGroup thumbnails;
+  @Bind(R.id.thumbnails) ViewGroup thumbnails;
 
-  @InjectView(R.id.product_name) TextView productNameView;
+  @Bind(R.id.product_name) TextView productNameView;
 
-  @InjectView(R.id.company_name) TextView companyNameView;
+  @Bind(R.id.company_name) TextView companyNameView;
 
-  @InjectView(R.id.price) TextView priceView;
+  @Bind(R.id.price) TextView priceView;
 
-  @InjectView(R.id.quantity) TextView quantityView;
+  @Bind(R.id.quantity) TextView quantityView;
 
-  @InjectView(R.id.description) TextView descriptionView;
+  @Bind(R.id.description) TextView descriptionView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_product);
-    ButterKnife.inject(this);
+    ButterKnife.bind(this);
     product = Parcels.unwrap(getIntent().getParcelableExtra(Intents.EXTRA_PRODUCT));
 
     initAdapter();
