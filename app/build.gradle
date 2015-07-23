@@ -36,8 +36,8 @@ dependencies {
   compile 'com.android.support:appcompat-v7:22.2.0'
   compile 'com.android.support:cardview-v7:22.2.0'
 
-  apt 'com.contentful.vault:compiler:0.9.2'
-  compile 'com.contentful.vault:core:0.9.2'
+  apt 'com.contentful.vault:compiler:0.9.7'
+  compile 'com.contentful.vault:core:0.9.7'
 
   compile 'org.parceler:parceler-api:1.0.0'
   apt 'org.parceler:parceler:1.0.0'
@@ -49,6 +49,4 @@ dependencies {
   compile 'com.commonsware.cwac:anddown:0.2.4'
   compile 'com.felipecsl.quickreturn:library:1.5.1'
   compile 'com.squareup.picasso:picasso:2.5.2'
-  compile 'com.squareup.okhttp:okhttp:2.3.0'
-  compile 'com.squareup.okhttp:okhttp-urlconnection:2.3.0'
 }

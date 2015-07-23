@@ -23,9 +23,8 @@ public class ClientProvider {
         String accessToken = defaultIfBlank(Preferences.getAccessToken(), Const.ACCESS_TOKEN);
 
         instance = CDAClient.builder()
-            .setSpaceKey(spaceId)
-            .setAccessToken(accessToken)
-            .nullifyUnresolvedLinks()
+            .setSpace(spaceId)
+            .setToken(accessToken)
             .build();
       }
 
